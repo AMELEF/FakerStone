@@ -1,5 +1,7 @@
 package entity;
 
+import environment.Team;
+
 import java.util.ArrayList;
 
 public class Champion extends Entity{
@@ -10,8 +12,8 @@ public class Champion extends Entity{
         return deck;
     }
 
-    public Champion(int id, String name, int hp, String specialAbility, ArrayList<Card> deck) {
-        super(id, name, hp);
+    public Champion(int id, String name, int hp, String specialAbility, Team team, ArrayList<Card> deck) {
+        super(id, name, hp, team);
         this.specialAbility = specialAbility;
         this.deck = deck;
     }
@@ -29,8 +31,4 @@ public class Champion extends Entity{
                 ". Nouvelle santé : " + target.getHp());
     }
 
-    public Champion(int id, String name, int hp, String specialAbility) {
-        super(id, name, hp);
-        this.specialAbility = specialAbility;
-    }
 }
