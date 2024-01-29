@@ -14,7 +14,7 @@ public class Cinderthing extends Monster implements Damager {
     @Override
     public void attack(Entity target) {
         if (target.isTargetable()) {
-            target.receiveAttack(strength);
+            target.receiveAttack(this.strength);
         }
         else{
             System.out.println(target.getName()+" is not targetable !");

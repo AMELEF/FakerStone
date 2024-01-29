@@ -27,8 +27,8 @@ public class Champion extends Entity{
         // Exemple: Réduit de moitié la santé de la cible
         int newHp = target.getHp() / 2;
         target.setHp(newHp);
-        System.out.println(this.getName() + " utilise sa capacité spéciale sur " + target.getName() +
-                ". Nouvelle santé : " + target.getHp());
+        System.out.println(this.getName() + " uses his special ability on " + target.getName() +
+                ". New health : " + target.getHp());
     }
 
 }

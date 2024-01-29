@@ -16,13 +16,12 @@ public class Monster extends Entity {
     public void attack(Entity target) {
         // Implémentation pour l'attaque d'un monstre
         // Exemple: Réduit la santé de la cible par les dégâts d'attaque du monstre
-        int newHp = target.getHp() - this.attackDamage;
+        int newHp = target.getHp() - this.strength;
         target.setHp(newHp);
         System.out.println(this.getName() + " attaque " + target.getName() +
-                " et lui inflige " + this.attackDamage + " dégâts. Nouvelle santé de la cible : " + target.getHp());
+                " and inflicts " + this.strength + " damage. Target's new health : " + target.getHp());
     }
 
-    @Override
     public void receiveAttack(int damage) {
         // Implémentation pour la réception d'une attaque
         // Réduit la santé du monstre attaqué par les dégâts reçus
@@ -32,6 +31,16 @@ public class Monster extends Entity {
             System.out.println(this.getName() + " suffers an attack and loses " + damage +
                     " hp. New monster health : " + this.getHp());
         }
+    }
+
+    public void boostStrength(int amount) {
+        // Implémentation de l'augmentation de l'attaque
+        this.strength += amount;
+    }
+
+    public void boostHp(int amount) {
+        // Implémentation de l'augmentation de la défense
+        this.hp += amount;
     }
 
     public Monster(int id, String name, int hp, int strength, Team team) {

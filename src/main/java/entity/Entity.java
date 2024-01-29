@@ -1,5 +1,7 @@
 package entity;
 
+import environment.Team;
+
 public class Entity {
     private int id;
     private String name;
