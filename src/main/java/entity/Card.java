@@ -18,9 +18,8 @@ public class Card {
         master.removeCardFromDeck(this);
     }
 
-    public Card(int id, String name, Entity summonedEntity) {
+    public Card(int id, Entity summonedEntity) {
         this.id = id;
-        this.name = name;
         this.summonedEntity = summonedEntity;
     }
 

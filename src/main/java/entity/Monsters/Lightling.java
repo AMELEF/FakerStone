@@ -11,8 +11,9 @@ import org.apache.logging.log4j.Logger;
 public class Lightling extends Monster implements IMonster {
     Logger log = LogManager.getLogger(Lightling.class);
 
-    public Lightling(int id, String name, int health, int strength, Team team) {
-        super(id, name, health, strength, team);
+    public Lightling(int id, Team team) {
+        super(id, "Lightling", 6, 2, team);
+        this.setType(EntityTypes.HEALER);
     }
 
     public void heal(Entity target, Board board){

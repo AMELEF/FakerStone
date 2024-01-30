@@ -48,7 +48,7 @@ public class MonsterTest {
         Cinderthing monster = new Cinderthing(1, red);
 
         // Le monstre attaque la cible
-        monster.attack(targetChampion);
+        monster.attack(targetChampion, board);
 
         // Vérifie que la cible a perdu les points de vie attendus
         assertEquals(12, targetChampion.getHp());

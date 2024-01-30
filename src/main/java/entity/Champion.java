@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Champion extends Entity{
     private SpecialAttacks specialAbility;
     private ArrayList<Card> deck;
+    Logger log = LogManager.getLogger(Champion.class);
 
     public void setDeck(ArrayList<Card> deck) {
         this.deck = deck;
