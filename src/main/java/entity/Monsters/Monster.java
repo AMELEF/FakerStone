@@ -1,50 +1,33 @@
 package entity.Monsters;
 
 import entity.Entity;
-import entity.Monsters.Profiles.Protector;
+import entity.EntityTypes;
+import environment.Board;
 import environment.Team;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.Scanner;
 
 public class Monster extends Entity {
-    int id;
-    String name;
-    int hp;
-    int strength;
-    Team team;
+    Logger log = LogManager.getLogger(Monster.class);
 
-    public int getStrength(){ return strength; }
-
-    public void attack(Entity target) {
-        // Implémentation pour l'attaque d'un monstre
-        // Exemple: Réduit la santé de la cible par les dégâts d'attaque du monstre
-        int newHp = target.getHp() - this.strength;
-        target.setHp(newHp);
-        System.out.println(this.getName() + " attaque " + target.getName() +
-                " and inflicts " + this.strength + " damage. Target's new health : " + target.getHp());
-    }
-
-    public void receiveAttack(int damage) {
-        // Implémentation pour la réception d'une attaque
-        // Réduit la santé du monstre attaqué par les dégâts reçus
-        if (this.isTargetable()) {
-            int newHp = this.getHp() - damage;
-            this.setHp(newHp);
-            System.out.println(this.getName() + " suffers an attack and loses " + damage +
-                    " hp. New monster health : " + this.getHp());
+    public Entity pickTargetByID(Board board){
+        System.out.println("Select a target (enter ID):");
+        board.printEntities();
+        Scanner scanner = new Scanner(System.in);
+        int targetId = scanner.nextInt();
+        for (Entity entity : board.getAliveEntities()) {
+            if (entity.getId() == targetId){
+                return entity;
+            }
         }
-    }
-
-    public void boostStrength(int amount) {
-        // Implémentation de l'augmentation de l'attaque
-        this.strength += amount;
-    }
-
-    public void boostHp(int amount) {
-        // Implémentation de l'augmentation de la défense
-        this.hp += amount;
+        System.out.println("No Entity found with this ID");
+        return pickTargetByID(board);
     }
 
     public Monster(int id, String name, int hp, int strength, Team team) {
         super(id, name, hp, team);
-        this.strength = strength;
+        this.setStrength(strength);
     }
 }

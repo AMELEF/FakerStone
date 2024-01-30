@@ -1,53 +1,49 @@
 package entity.Monsters;
 
+import entity.Champion;
 import entity.Entity;
-import entity.Monsters.Profiles.Mascot;
+import entity.EntityTypes;
+import environment.Board;
 import environment.Team;
 
-public class Clownmask extends Monster implements Mascot {
-    private int strengthBoost;
-    private int healthBoost;
+import java.util.Scanner;
 
-    public Clownmask(int id, String name, int health, int strength, int attackBoost, int healthBoost, Team team) {
-        super(id, name, health, strength, team);
-        this.strengthBoost = attackBoost;
-        this.healthBoost = healthBoost;
+public class Clownmask extends Monster implements IMonster {
+
+    public Clownmask(int id, Team team) {
+        super(id, "Clownmask", 3, 1, team);
+        this.setType(EntityTypes.MASCOT);
     }
 
-    /**
-     * @param target
-     * Action des mascottes, boost la force ou la défense du monstre ciblé
-     */
-    public void boostStrength(Monster target) {
-        if (isAlive()) {
-            // Boost the strength of the target
-            target.boostStrength(strengthBoost);
-            System.out.println(getName() + " boosts the strength of " + target.getName() +
-                    " by " + strengthBoost + ". New strength of the target: " + target.getStrength());
-        } else {
-            System.out.println(getName() + " is defeated and cannot boost strength.");
-        }
+    public void boostStrength(Entity target, Board board) {
+        target.setStrength(target.getStrength()+1);
+        log.info("["+this.getTeam().getName()+"] "+this.getName()+" boosted "+target.getName()+" : +"+this.getStrength()+"STR!");
     }
 
-    public void boostHp(Monster target) {
-        if (isAlive()) {
-            // Boost the health of the target
-            target.boostHp(healthBoost);
-            System.out.println(getName() + " boosts the health of " + target.getName() +
-                    " by " + healthBoost + ". New health of the target: " + target.getHp());
-        } else {
-            System.out.println(getName() + " is defeated and cannot boost health.");
-        }
+    public void boostHp(Entity target, Board board) {
+        target.setHp(target.getHp()+1);
+        log.info("["+this.getTeam().getName()+"] "+this.getName()+" heals "+target.getName()+" : +"+this.getStrength()+"HP!");
     }
+
     @Override
-    public void attack(Entity target) {
-        System.out.println(this.getName() + " is a mascot and cannot attack.");
-    }
-
-    public int getAttackBoost() {
-        return strengthBoost;
-    }
-    public int getHealthBoost() {
-        return healthBoost;
+    public void action(Board board) {
+        System.out.println("["+getPlayerName()+"] Clownmask will boost HP (+1) or Strength (+1).");
+        System.out.println("[1] Boost HP");
+        System.out.println("[2] Boost Strength");
+        boolean flag = true;
+        while (flag) {
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+            if (choice == 1){
+                Entity target = pickTargetByID(board);
+                boostHp(target,board);
+                flag = false;
+            }
+            if (choice == 2){
+                Entity target = pickTargetByID(board);
+                boostStrength(target,board);
+                flag = false;
+            }
+        }
     }
 }

@@ -1,23 +1,31 @@
 package entity.Monsters;
 
-import entity.Champion;
 import entity.Entity;
-import entity.Monsters.Profiles.Damager;
+import entity.EntityTypes;
+import environment.Board;
 import environment.Team;
 
-public class Cinderthing extends Monster implements Damager {
+public class Cinderthing extends Monster implements IMonster {
 
-    public Cinderthing(int id, String name, int hp, int strength, Team team) {
-        super(id, name, hp, strength, team);
+    public Cinderthing(int id, Team team) {
+        super(id, "Cinderthing", 8, 4, team);
+        this.setType(EntityTypes.DAMAGER);
+    }
+
+    public void attack(Entity target, Board board){
+        if (target.isTargetable()) {
+            log.info("["+this.getTeam().getName()+"] "+this.getName()+" attacks "+target.getName()+" : -"+this.getStrength()+"HP!");
+            target.receiveAttack(this.getStrength(),board);
+        }
+        else{
+            log.info(this.getName()+" missed its attack !");
+        }
     }
 
     @Override
-    public void attack(Entity target) {
-        if (target.isTargetable()) {
-            target.receiveAttack(this.strength);
-        }
-        else{
-            System.out.println(target.getName()+" is not targetable !");
-        }
+    public void action(Board board) {
+        System.out.println("["+getPlayerName()+"] Cinderthing will attack the target :");
+        Entity target = pickTargetByID(board);
+        attack(target, board);
     }
 }
