@@ -2,14 +2,14 @@
 <Configuration>
     <Properties>
         <Property name="log.pattern">%d{MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}%n%msg%n%n</Property>
-        <Property name="file.err.filename">log/err.log</Property>
-        <Property name="file.err.pattern">log/err.%i.log.gz</Property>
+        <Property name="file.log.filename">log/log.log</Property>
+        <Property name="file.log.pattern">log/log.%i.log</Property>
     </Properties>
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="${log.pattern}" />
         </Console>
-        <RollingFile name="err" bufferedIO="true" fileName="${file.err.filename}" filePattern="${file.err.pattern}">
+        <RollingFile name="log" bufferedIO="true" fileName="${file.log.filename}" filePattern="${file.log.pattern}">
             <PatternLayout pattern="${log.pattern}" />
             <Policies>
                 <SizeBasedTriggeringPolicy size="1 MB" />
@@ -20,7 +20,7 @@
     <Loggers>
         <Root level="info">
             <AppenderRef ref="console" level="info" />
-            <AppenderRef ref="err" level="error" />
+            <AppenderRef ref="log" level="info" />
         </Root>
     </Loggers>
 </Configuration>

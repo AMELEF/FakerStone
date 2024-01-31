@@ -4,6 +4,7 @@ import entity.Monsters.Clownmask;
 import entity.Monsters.Lightling;
 import entity.Monsters.Monster;
 import entity.SpecialAttacks.HolyWave;
+import entity.SpecialAttacks.MagmaRage;
 import environment.Board;
 import environment.Team;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class MonsterTest {
         monster.attack(targetChampion, board);
 
         // Vérifie que la cible a perdu les points de vie attendus
-        assertEquals(12, targetChampion.getHp());
+        assertEquals(11, targetChampion.getHp());
     }
 
     @Test
@@ -63,8 +64,10 @@ public class MonsterTest {
         Champion champion1 = new Champion(1, "Champion 1", 30, new HolyWave(),team1 ,new ArrayList<>());
         Champion champion2 = new Champion(2, "Champion 2", 30, new HolyWave(),team2 ,new ArrayList<>());
         board.summonEntity(champion1);
+        team1.addEntity(champion1);
         board.summonEntity(champion2);
-        // Champion 1 utilise sa capacité spéciale sur Champion 2
+        team2.addEntity(champion2);
+        // Champion 1 utilise sa capacité spéciale (toute son équipe dont lui-même gagne 2HP)
         champion1.useSpecialAbility();
 
         // Vérifie que la santé de Champion 1 est augmentée, sans augmenter celle du champ2

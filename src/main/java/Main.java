@@ -11,16 +11,22 @@ import environment.Team;
 import environment.UniqueIdentifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.core.Appender;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 import static environment.ConsoleColors.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Logger log = LogManager.getLogger(Main.class);
+
         log.info("FLINOIS André-Mathys et ZHU Yuzhe");
 
         //Unique Identifier
@@ -105,13 +111,12 @@ public class Main {
                 player2.playTurn(board);
                 log.info(RESET);
             }
-
-            //Détermination du vainqueur
-            if (player1.getHp()<0 && player2.getHp()<0) winner = "EVEN!";
-            else if(player1.getHp()<0) winner = player2Name;
-            else if (player2.getHp()<0) winner = player1Name;
             turn ++;
         }
+        //Détermination du vainqueur
+        if (!player1.isAlive() && !player2.isAlive()) winner = "EVEN!";
+        else if(!player1.isAlive()) winner = player2Name;
+        else if (!player2.isAlive()) winner = player1Name;
 
         log.info(YELLOW_BOLD_BRIGHT+"Winner is : "+winner);
         board.printEntities();

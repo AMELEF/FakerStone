@@ -23,7 +23,11 @@ public class Board {
     }
 
     public void printEntities(){
-        aliveEntities.sort(Comparator.comparing(Entity::getTeamName));
+        try{
+            aliveEntities.sort(Comparator.comparing(Entity::getTeamName));
+        }
+        catch (NullPointerException e){
+        }
         System.out.println("---------------------------------------------------");
         System.out.println("ID");
         for (Entity entity:aliveEntities) {

@@ -99,10 +99,8 @@ public class Champion extends Entity{
             }
         }
 
-        ArrayList<Entity> entityTeam = this.getTeam().getEntities();
-
         //Chaque monstre dans l'équipe joue son tour
-        for (Entity entity : entityTeam) {
+        for (Entity entity : this.getTeam().getEntities()) {
             if (entity.getType() != EntityTypes.CHAMPION && this.getTeam().hasChampion() && this.getTeam().hasChampion()) {
                 entity.action(board);
                 board.printEntities();
